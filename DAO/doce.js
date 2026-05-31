@@ -71,8 +71,9 @@ const setInserirDoce = async function (doce) {
         cobertura,
         data_validade,
         data_feito,
-        massa
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, )`
+        massa,
+        foto_doce
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
 
     let result = await knexDatabase.raw(sql, [
       doce.nome,
@@ -81,7 +82,8 @@ const setInserirDoce = async function (doce) {
       doce.cobertura,
       doce.data_validade,
       doce.data_feito,
-      doce.massa
+      doce.massa,
+      doce.foto_doce
     ])
 
     if (result[0].affectedRows > 0)
@@ -107,7 +109,8 @@ const setUpDateDoce = async function (doce){
         cobertura           = '${doce.cobertura}',
         data_validade  = '${doce.data_validade}',
         data_feito         = '${doce.data_feito}',
-        massa           = '${doce.massa}'
+        massa           = '${doce.massa}',
+        foto_doce       = '${doce.foto_doce}'
         
         where id_doce = ${doce.id_doce} `
 

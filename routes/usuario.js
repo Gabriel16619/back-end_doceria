@@ -9,10 +9,10 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-const controllerUsuario = require('../controller/controller_usuario')
+const controllerUsuario = require('../controller/controller_usuario.js')
 
 const router = express.Router()
-module.exports = router
+
 
 
 router.use((request, response, next ) => {
@@ -34,20 +34,44 @@ router.get('/', cors(), async function (request, response) {
 
 
 router.get('/:id', cors(), async function (request, response) {
-    let idTipo = request .params.id
-    let tipoId = await controllerTipo.pegarTipoid(idTipo)
-    response.status(tipoId.status_code)
-    response.json(tipoId)
+    let idUsuario = request .params.id
+    let usuarioId = await controllerUsuario.pegarUsuarioId(idUsuario)
+    response.status(usuarioId.status_code)
+    response.json(usuarioId)
     
 })
 
 router.delete('/:id', cors(), async function (request, response) {
 
-    let idTipo = request.params.id
+    let idUsuario = request.params.id
 
-    let tipoId = await controllerTipo.deletarUmTipo(idTipo)
-    response.status(tipoId.status_code)
-    response.json(tipoId)
+    let usuarioId = await controllerUsuario.deletarUmUsuario(idUsuario)
+    response.status(usuarioId.status_code)
+    response.json(usuarioId)
     
 })
+
+router.post('/', cors(), async function (request, response) {
+
+    let contentType = request.headers['content-type']
+  let adicionarUsuario = request.body
+
+  let usuario = await controllerUsuario.inserirUsuario(adicionarUsuario, contentType)
+
+  response.status(usuario.status_code)
+  response.json(usuario)
+    
+})
+
+router.put('/', cors(), async function (request, response) {
+
+    let contentType = request.headers['content-type']
+    let atualizarUsuario = request.body
+    let usuario = await controllerUsuario.atualizarUsuario(atualizarUsuario, contentType)
+    response.status(usuario.status_code)
+    response.json(usuario)
+    
+})
+
+module.exports = router
 

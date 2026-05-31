@@ -6,6 +6,16 @@
  * Versão: 1.0
  ************************/
 
+process.on('uncaughtException', (error) => {
+    console.error('ERRO FATAL:', error)
+    process.exit(1)
+})
+
+process.on('unhandledRejection', (error) => {
+    console.error('ERRO PROMISE:', error)
+    process.exit(1)
+})
+
 const express = require('express')
 const cors = require('cors')
 
@@ -33,6 +43,9 @@ app.use("/v1/doceriagourmet/tipo", TipoRoutes)
 
 const UsuarioRoutes = require('./routes/usuario')
 app.use("/v1/doceriagourmet/usuario", UsuarioRoutes)
+
+const historicoRoute = require('./routes/historico')
+app.use('/v1/doceriagourmet/historico', historicoRoute)
 
 
 app.listen(PORT, function(){

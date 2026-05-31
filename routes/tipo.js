@@ -31,16 +31,6 @@ router.get('/', cors(), async function (request, response) {
 
 module.exports = router
 
-
-//router.get('/:id_tipo', cors(), async function (request, response) {
-
-   // let idDoceTipo = request.params.id_tipo
-   // let doceId = await controllerDoce.pegarDoceidTipo(idDoceTipo)
-    //response.status(doceId.status_code)
-    //response.json(doceId)
-    
-//})
-
 router.get('/:id', cors(), async function (request, response) {
     let idTipo = request .params.id
     let tipoId = await controllerTipo.pegarTipoid(idTipo)

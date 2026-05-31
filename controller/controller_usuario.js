@@ -41,8 +41,8 @@ const mostrarUsuario =  async function () {
     
 }
 
-//voltar aqui
-const inserirUsuario = async function (tipo, contentType) {
+
+const inserirUsuario = async function (usuario, contentType) {
 
     let MESSAGE = JSON.parse(JSON.stringify(DEFAULT_MESSAGE))
 
@@ -50,22 +50,23 @@ const inserirUsuario = async function (tipo, contentType) {
 
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
 
-            let dadosValidos = await validarDadosTipo(tipo)
+            let dadosValidos = await validarDadosUsuario(usuario)
 
             if (dadosValidos) {
 
-                let result = await tiposDAO.setInserirTipo(tipo)
+                let result = await usuarioDAO.adicionarUsuario(usuario)
 
                 if (result) {
 
-                    let lastIdTipo = await tiposDAO.setLastIdTipo(tipo)
+                    let lastIdUsuario = await usuarioDAO.setLastIdUsuario(usuario)
 
-                    if (lastIdTipo) {                               
-                        tipo.id_tipo = lastIdTipo                  
+                    if (lastIdUsuario) {             
+
+                        usuario.id_usuario = lastIdUsuario                  
                         MESSAGE.HEADER.status      = MESSAGE.SUCCESS_CREATED_ITEM.status
                         MESSAGE.HEADER.status_code = MESSAGE.SUCCESS_CREATED_ITEM.status_code
                         MESSAGE.HEADER.message     = MESSAGE.SUCCESS_CREATED_ITEM.message
-                        MESSAGE.HEADER.response    = tipo          
+                        MESSAGE.HEADER.response    = usuario          
 
                         return MESSAGE.HEADER
 
@@ -122,8 +123,8 @@ const pegarUsuarioId = async function (id) {
 
 }
 
-//voltar aqui depois
-const atualizarUsuario = async function (tipo, id, contentType) {
+
+const atualizarUsuario = async function (usuario, contentType) {
 
     let MESSAGE = JSON.parse(JSON.stringify(DEFAULT_MESSAGE))
 
@@ -133,19 +134,19 @@ const atualizarUsuario = async function (tipo, id, contentType) {
 
             if (id) {
 
-                let dadosValidos = await validarDadosTipo(tipo)
+                let dadosValidos = await validarDadosUsuario(tipo)
 
                 if (dadosValidos) {
 
-                    tipo.id_tipo = id
+                    usuario.id_usuario = id
 
-                    let result = await tiposDAO.setUpDateTipo(tipo)
+                    let result = await usuarioDAO.adicionarUsuario(usuario)
 
                     if (result) {
                         MESSAGE.HEADER.status      = MESSAGE.SUCCESS_UPDATED_ITEM.status
                         MESSAGE.HEADER.status_code = MESSAGE.SUCCESS_UPDATED_ITEM.status_code
                         MESSAGE.HEADER.message     = MESSAGE.SUCCESS_UPDATED_ITEM.message
-                        MESSAGE.HEADER.response    = tipo
+                        MESSAGE.HEADER.response    = usuario
 
                         return MESSAGE.HEADER
 
@@ -230,5 +231,9 @@ const validarDadosUsuario = async function (usuario) {
 }
 
 module.exports = {
-   mostrarUsuario
+   mostrarUsuario,
+   pegarUsuarioId,
+   atualizarUsuario,
+   inserirUsuario,
+   deletarUmUsuario
 }
