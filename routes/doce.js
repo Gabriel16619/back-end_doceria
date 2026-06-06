@@ -35,7 +35,7 @@ router.get('/', cors(), async function (request, response) {
 
 
 router.get('/:id', cors(), async function (request, response) {
-    let idDoce = request .params.id
+    let idDoce = request.params.id
     let doceId = await controllerDoce.pegarDoceid(idDoce)
     response.status(doceId.status_code)
     response.json(doceId)

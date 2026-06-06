@@ -218,6 +218,6 @@ module.exports = {
     listarDocecomTipo,
     pegarDoceTipoId,
     inserirTipoDoce,
-     atualizarDoceTipo,
-     excluirDoceTipo
+    atualizarDoceTipo,
+    excluirDoceTipo
 }
